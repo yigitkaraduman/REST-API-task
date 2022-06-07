@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
       })
       .then((response) =>{
           let regionCountryNumList = getCountryNums(response.data);
-          console.log(regionCountryNumList);
+          //console.log(regionCountryNumList);
           let assignments = assignRepresentatives(regionCountryNumList);
           let distributions = distribute(assignments, response.data);
           res.send(JSON.stringify(distributions));
