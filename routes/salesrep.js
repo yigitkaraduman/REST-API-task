@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
       })
       .then((response) =>{
           let regionCountryNumList = getCountryNums(response.data);
-          console.log(regionCountryNumList);
+          //console.log(regionCountryNumList);
           let assignments = assignRepresentatives(regionCountryNumList);
           res.send(JSON.stringify(assignments));
           
@@ -56,7 +56,7 @@ const assignRepresentatives = function(regionCountryNumList){
         assignments.push({"region": regionCountryNumList[i].region, "minSalesReq": minSalesReq, "maxSalesReq": maxSalesReq});
      
     }
-    console.log(assignments);
+    //console.log(assignments);
     return assignments;
 }
 
