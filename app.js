@@ -11,12 +11,16 @@ app.use(express.json())
 
 
 app.get('/', (req,res) =>{
-    res.send('hello');
+    res.send('hello from my rest API project!');
 })
 
+//routes for countries
 const countryRoutes = require('./routes/countries');
 app.use('/countries', countryRoutes);
 
+//routes for salesrep
+const salesrepRoutes = require('./routes/salesrep');
+app.use('/salesrep', salesrepRoutes);
 
 
 const PORT = process.env.PORT;
