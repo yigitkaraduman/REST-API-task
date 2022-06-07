@@ -22,6 +22,10 @@ app.use('/countries', countryRoutes);
 const salesrepRoutes = require('./routes/salesrep');
 app.use('/salesrep', salesrepRoutes);
 
+//routes for optimal
+const optimalRoutes = require('./routes/optimal');
+app.use('/optimal', optimalRoutes);
+
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

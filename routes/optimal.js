@@ -13,7 +13,8 @@ router.get('/', async (req, res) => {
           let regionCountryNumList = getCountryNums(response.data);
           console.log(regionCountryNumList);
           let assignments = assignRepresentatives(regionCountryNumList);
-          res.send(JSON.stringify(assignments));
+          let distributions = distribute(assignments, response.data);
+          res.send(JSON.stringify(distributions));
           
       })
       .catch(function (error) {
@@ -60,6 +61,34 @@ const assignRepresentatives = function(regionCountryNumList){
     return assignments;
 }
 
+//distributes sales reps equally as possible.
+const distribute = function(assignments, countries){
+    let distributionList = [];
+    for(let i = 0; i < assignments.length; i++){ //traverses minSaleReq per region list
+        let subList = []; //holds reps for the current region
+        let currentRegion = assignments[i].region; //current region
+        let minSalesReq = assignments[i].minSalesReq; //current minSale for the spesified region
+        let subListpointer = 0;
+        for(let k = 0; k < countries.length; k++){ //traverse country data
+            if(countries[k].region.toLowerCase() == currentRegion.toLowerCase()){
+                if(subList.length < minSalesReq) //there should be maximum minSalesReq amount sales rep in the sublist
+                    subList.push({"region": currentRegion, "countryList": [countries[k].name], "countryCount": 1});
+            
+                else{ //assign countries to reps in order. If it comes to end of sublist, it goes back to 0 index and continue to assign reps in order again.
+                    if(subList[subListpointer] == null)
+                        subListpointer = 0;
+                    
+                    subList[subListpointer].countryList.push(countries[k].name);
+                    subList[subListpointer].countryCount = subList[subListpointer].countryCount + 1;
+                    subListpointer++;
+                }
+            }
+        }
 
+        distributionList = distributionList.concat(subList);
+    }
+
+        return distributionList;
+}
 
 module.exports = router;
