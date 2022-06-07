@@ -57,7 +57,7 @@ const assignRepresentatives = function(regionCountryNumList){
         assignments.push({"region": regionCountryNumList[i].region, "minSalesReq": minSalesReq, "maxSalesReq": maxSalesReq});
      
     }
-    console.log(assignments);
+    //console.log(assignments);
     return assignments;
 }
 
